@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculator</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <script>
+            const container = document.createElement("div");
+            container.id = "container";
+            document.body.appendChild(container);
+
+            const calcBody = document.createElement("div");
+            calcBody.id = "calcBody";
+            const display = document.createElement("div");
+            display.id = "display";
+            const panel = document.createElement("div");
+            panel.id = "panel";
+
+            let i, j;
+            let x = 0;
+            const toAdd = document.createDocumentFragment();
+
+            for (i=0; i<5; i++) {
+                const row = document.createElement("div");
+                row.className = "row";
+                toAdd.appendChild(row);
+                for (j=x; j<x+4; j++) {
+                    const box = document.createElement("button");
+                    box.className = "box";
+                    const inner = document.createElement("div");
+                    inner.className = "inner";
+                    inner.id = "inner" + j;
+                    box.appendChild(inner);
+                    row.appendChild(box);
+                }
+                x = j;
+            }
+
+            calcBody.appendChild(display);
+            panel.appendChild(toAdd);
+            calcBody.appendChild(panel);
+            container.appendChild(calcBody);
+
+            document.getElementById("display").textContent = "";
+
+            document.getElementById("inner0").textContent = "C";
+            document.getElementById("inner1").textContent = "CE";
+            document.getElementById("inner2").textContent = "Don't click me!";
+            document.getElementById("inner3").textContent = "+";
+            document.getElementById("inner4").textContent = "1";
+            document.getElementById("inner5").textContent = "2";
+            document.getElementById("inner6").textContent = "3";
+            document.getElementById("inner7").textContent = "-";
+            document.getElementById("inner8").textContent = "4";
+            document.getElementById("inner9").textContent = "5";
+            document.getElementById("inner10").textContent = "6";
+            document.getElementById("inner11").textContent = "x";
+            document.getElementById("inner12").textContent = "7";
+            document.getElementById("inner13").textContent = "8";
+            document.getElementById("inner14").textContent = "9";
+            document.getElementById("inner15").textContent = "/";
+            document.getElementById("inner16").textContent = "Brackets coming soon!";
+            document.getElementById("inner17").textContent = "0";
+            document.getElementById("inner18").textContent = ".";
+            document.getElementById("inner19").textContent = "=";
+
+            //functions to populate display and array when number buttons are clicked or key pressed
+
+            let equation = "";
+            let answer = "";
+            document.getElementById("inner0").addEventListener("click", function(event) {
+                document.getElementById("display").textContent = "";
+                equation = "";
+            });
+
+            document.getElementById("inner1").addEventListener("click", function(event) {
+                equation = equation.substring(0, equation.length-1);
+                document.getElementById("display").textContent = equation;
+            });
+            window.addEventListener("keydown", function(event) {
+                if (event.keyCode == 8) {
+                    event.preventDefault();
+                    equation = equation.substring(0, equation.length-1);
+                    document.getElementById("display").textContent = equation;
+                }
+            });
+            document.getElementById("inner2").addEventListener("click", function(event) {
+                document.getElementById("display").textContent = "BOO!";
+                equation = "";
+            });
+            document.getElementById("inner3").addEventListener("click", function(event) {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "+";
+                    equation = equation + "+"; 
+                }
+            });
+            window.addEventListener("keydown", function(event) {
+                if (equation.length<16) {
+                    if (event.keyCode == 107) {
+                        event.preventDefault();
+                        document.getElementById("display").textContent += "+";
+                        equation = equation + "+";
+                    }
+                }
+            });
+            window.addEventListener("keydown", function(event) {
+                if (equation.length<16) {
+                    if (event.keyCode == 187 && event.shiftKey) {
+                        event.preventDefault();
+                        document.getElementById("display").textContent += "+";
+                        equation = equation + "+";
+                    }
+                }
+            });
+            document.getElementById("inner4").addEventListener("click", function(event) {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "1";
+                    equation = equation + "1";
+                }
+            });
+            window.addEventListener("keydown", function(event) {
+                if (equation.length<16) {
+                    if (event.keyCode == 97 || event.keyCode == 49) {
+                        event.preventDefault();
+                        document.getElementById("display").textContent += "1";
+                        equation = equation + "1";
+                    }
+                }
+            });
+            document.getElementById("inner5").addEventListener("click", function(event) {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "2";
+                    equation = equation + "2";
+                }
+            });
+            window.addEventListener("keydown", function(event) {
+                if (equation.length<16) {
+                    if (event.keyCode == 50 || event.keyCode == 98) {
+                        event.preventDefault();
+                        document.getElementById("display").textContent += "2";
+                        equation = equation + "2";
+                    }
+                }
+            });
+            document.getElementById("inner6").addEventListener("click", function(event) {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "3";
+                    equation = equation + "3";
+                }
+            });
+            window.addEventListener("keydown", function(event) {
+                if (equation.length<16) {
+                    if (event.keyCode == 51 || event.keyCode == 99) {
+                        event.preventDefault();
+                        document.getElementById("display").textContent += "3";
+                        equation = equation + "3";
+                    }
+                }
+            });
+            document.getElementById("inner7").addEventListener("click", function(event) {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "-";
+                    equation = equation + "-";
+                }
+            });
+            window.addEventListener("keydown", function(event) {
+                if (equation.length<16) {
+                    if (event.keyCode == 109 || event.keyCode == 189) {
+                        event.preventDefault();
+                        document.getElementById("display").textContent += "-";
+                        equation = equation + "-";
+                    }
+                }
+            });
+            document.getElementById("inner8").addEventListener("click", function(event) {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "4";
+                    equation = equation + "4";
+                }
+            });
+            window.addEventListener("keydown", function(event) {
+                if (equation.length<16) {
+                    if (event.keyCode == 52 || event.keyCode == 100) {
+                        event.preventDefault();
+                        document.getElementById("display").textContent += "4";
+                        equation = equation + "4";
+                    }
+                }
+            });
+            document.getElementById("inner9").addEventListener("click", toDisplay5);
+            function toDisplay5() {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "5";
+                    equation = equation + "5";
+                }
+            }
+            window.addEventListener("keydown", function(event) {
+                    if (event.keyCode === 53 || event.keyCode === 101) {
+                        event.preventDefault();
+                        toDisplay5();
+                    }
+            });
+            document.getElementById("inner10").addEventListener("click", toDisplay6);
+            function toDisplay6() {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "6";
+                    equation = equation + "6";
+                }
+            }
+            window.addEventListener("keydown", function(event) {
+                    if (event.keyCode == 54 || event.keyCode == 102) {
+                        event.preventDefault();
+                        toDisplay6();
+                    }
+            });
+            document.getElementById("inner11").addEventListener("click", toDisplayMultipy);
+            function toDisplayMultipy() {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "x";
+                    equation = equation + "x";
+                }
+            }
+            window.addEventListener("keydown", function(event) {
+                    if (event.keyCode == 88 || event.keyCode == 106) {
+                        event.preventDefault();
+                        toDisplayMultipy();
+                    }
+                            });
+            window.addEventListener("keydown", function(event) {
+                if (equation.length<16) {
+                    if (event.keyCode == 56 && event.shiftKey) {
+                        event.preventDefault();
+                        document.getElementById("display").textContent += "x";
+                        equation = equation + "x";
+                    }
+                }
+            });
+            document.getElementById("inner12").addEventListener("click", toDisplay7);
+            function toDisplay7() {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "7";
+                    equation = equation + "7";
+                }
+            }
+            window.addEventListener("keydown", function(event) {
+                if (event.keyCode == 55 || event.keyCode == 103) {
+                    event.preventDefault();
+                    toDisplay7();
+                }
+            });
+            document.getElementById("inner13").addEventListener("click", toDisplay8);
+            function toDisplay8() {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "8";
+                    equation = equation + "8";
+                }
+            }
+            window.addEventListener("keydown", function(event) {
+                if (!event.shiftKey) {
+                    if (event.keyCode == 56 || event.keyCode == 104) {
+                        event.preventDefault();
+                        toDisplay8();
+                    }
+                }
+
+            });
+            document.getElementById("inner14").addEventListener("click", toDisplay9);
+            function toDisplay9() {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "9";
+                    equation = equation + "9";
+                }
+            }
+            window.addEventListener("keydown", function(event) {
+                if (!event.shiftKey) {
+                    if (event.keyCode == 57 || event.keyCode == 105) {
+                        event.preventDefault();
+                        toDisplay9();
+                    }
+                }
+            });
+            document.getElementById("inner15").addEventListener("click", toDisplayDivide);
+            function toDisplayDivide() {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "/";
+                    equation = equation + "/";
+                }
+            }
+            window.addEventListener("keydown", function(event) {
+                if (event.keyCode == 191 || event.keyCode == 111) {
+                    event.preventDefault();
+                    toDisplayDivide();
+                }
+            });
+            // does not work
+            document.getElementById("inner16").addEventListener("click", toDisplayBrackets);
+            function toDisplayBrackets() {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent = "Coming soon!";
+                    equation = "";
+                }
+            }
+            window.addEventListener("keydown", function(event) {
+                if (equation.length<16) {
+                    if ((event.keyCode == 57 && event.shiftKey) || event.keyCode == 48 && event.shiftKey) {
+                        event.preventDefault();
+                        document.getElementById("display").textContent = "Coming soon!";
+                        equation = "";
+                    }
+                }
+            });
+            document.getElementById("inner17").addEventListener("click", toDisplay0);
+            function toDisplay0() {
+                if (equation.length<16) {
+                    document.getElementById("display").textContent += "0";
+                    equation = equation + "0";
+                }
+            }
+            window.addEventListener("keydown", function(event) {
+                if (!event.shiftKey) {
+                    if (event.keyCode == 48 || event.keyCode == 96) {
+                        event.preventDefault();
+                        toDisplay0();
+                    }
+                }
+            });
+            document.getElementById("inner18").addEventListener("click", toDisplayPoint);
+            function toDisplayPoint() {
+                    if (equation.includes(".")) {
+                        equation = equation + "";
+                    }
+                else {
+                    if (equation.length<16) {
+                        document.getElementById("display").textContent += ".";
+                        equation = equation + ".";
+                    }
+                }
+            }
+            window.addEventListener("keydown", function(event) {
+                if (event.keyCode == 110 || event.keyCode == 190) {
+                    event.preventDefault();
+                    toDisplayPoint();
+                }
+            });
+
+            window.addEventListener("keydown", function(event) {
+                if (!event.shiftKey) {
+                    if (event.keyCode === 187 || event.keyCode === 13) {
+                        event.preventDefault();
+                        toDisplayEquals();
+                    }
+                }
+            });
+            document.getElementById("inner19").addEventListener("click", toDisplayEquals);
+            function toDisplayEquals() {
+                const a = equation.indexOf("+");
+                const b = equation.indexOf("-");
+                const x = equation.indexOf("x");
+                const y = equation.indexOf("/");
+                const indices = [];
+                let addCommas = "";
+
+                //put indices of operators into array
+                for (let i=0; i<equation.length; i++) {
+                    if (equation[i] === "+" || equation[i] === "-" || equation[i] === "x" || equation[i] === "/") indices.push(i);
+                }
+                //split string with commas based on indices in above array
+                for (let i=0; i<=indices.length; i++) {
+                    if (i == 0) {
+                        addCommas = addCommas + equation.substring(i, indices[i]) + "," + equation.substr(indices[i], 1) + ",";
+                    }
+                    else if (i == indices.length) {
+                        addCommas = addCommas + equation.substring(indices[i-1] + 1, indices[i]);
+                    }
+                    else {
+                        addCommas = addCommas + equation.substring(indices[i-1] + 1, indices[i]) + "," + equation.substr(indices[i], 1) + ",";
+                    }
+                }
+
+                const equationArr = addCommas.split(","); //turn string from display into an array
+
+                //get all indices for operators
+                function getAllIndexes(arr, val) {
+                    const indexes = [];
+                    let i = -1;
+                    while ((i = arr.indexOf(val, i+1)) != -1){
+                    indexes.push(i);
+                    }
+                    return indexes;
+                }
+
+                let i=0;
+                let j=0;
+                let adjust = 0; // increments in loops by 2 to compensate for parts of equation removed from array
+
+                if (equationArr.includes("x") == true) {
+                    adjust = 0;
+                    const multiplyIndexes = getAllIndexes(equationArr, "x");
+                    const divideIndexes = getAllIndexes(equationArr, "/");
+                    if (equationArr.includes("/") == false) {
+                        for (i=0; i<multiplyIndexes.length; i++) {
+                            answer = multiply(Number(equationArr[multiplyIndexes[i]-adjust - 1]), Number(equationArr[multiplyIndexes[i]-adjust + 1]));
+                            equationArr.splice(multiplyIndexes[i]-adjust-1, 0, answer);// insert answer
+                            equationArr.splice(multiplyIndexes[i]-adjust, 3); // remove equation just performed
+                            adjust += 2; 
+                        }
+                    }
+                    else {
+                        i=0;
+                        j=0;
+                        while (i<multiplyIndexes.length || j<divideIndexes.length) {
+                            if (multiplyIndexes[i] < divideIndexes[j]) { // if multiply comes first the run multiply
+                                answer = multiply(Number(equationArr[multiplyIndexes[i]-adjust - 1]), Number(equationArr[multiplyIndexes[i]-adjust + 1]));
+                                equationArr.splice(multiplyIndexes[i]-adjust-1, 0, answer);// insert answer
+                                equationArr.splice(multiplyIndexes[i]-adjust, 3); // remove equation just performed
+                                adjust += 2;
+                                i++;
+                            }
+                            else if (multiplyIndexes[i] > divideIndexes[j]) {
+                                if (divideIndexes[j] - adjust - 1 == 0 || divideIndexes[j] - adjust + 1 == 0) {
+                                    answer = NaN; // returns NaN so display says Uh oh
+                                }
+                                else {
+                                    answer = divide(Number(equationArr[divideIndexes[j] - adjust - 1]), Number(equationArr[divideIndexes[j] - adjust + 1]));
+                                    equationArr.splice(divideIndexes[j]-adjust -1, 0, answer);
+                                    equationArr.splice(divideIndexes[j]-adjust, 3);
+                                    adjust += 2;
+                                    j++;
+                                }
+                            }
+                            else if (divideIndexes[j] === undefined) {
+                                answer = multiply(Number(equationArr[multiplyIndexes[i]-adjust - 1]), Number(equationArr[multiplyIndexes[i]-adjust + 1]));
+                                equationArr.splice(multiplyIndexes[i]-adjust-1, 0, answer);// insert answer
+                                equationArr.splice(multiplyIndexes[i]-adjust, 3); // remove equation just performed
+                                adjust += 2;
+                                i++;
+                            }
+                            else if (multiplyIndexes[i] === undefined) {
+                                if (divideIndexes[j] - adjust - 1 == 0 || divideIndexes[j] - adjust + 1 == 0) {
+                                    answer = NaN;
+                                }
+                                else {
+                                    answer = divide(Number(equationArr[divideIndexes[j] - adjust - 1]), Number(equationArr[divideIndexes[j] - adjust + 1]));
+                                    equationArr.splice(divideIndexes[j]-adjust -1, 0, answer);
+                                    equationArr.splice(divideIndexes[j]-adjust, 3);
+                                    adjust += 2;
+                                    j++;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (equationArr.includes("/") == true && equationArr.includes("x") == false) {
+                    adjust=0;
+                    let divideIndexes = getAllIndexes(equationArr, "/");
+                    for (i=0; i<divideIndexes.length; i++){
+                        if (divideIndexes[j] - adjust - 1 == 0 || divideIndexes[j] - adjust + 1 == 0) {
+                            answer = NaN;
+                        }
+                        else {
+                            answer = divide(Number(equationArr[divideIndexes[j] - adjust - 1]), Number(equationArr[divideIndexes[j] - adjust + 1]));
+                            equationArr.splice(divideIndexes[j]-adjust -1, 0, answer);
+                            equationArr.splice(divideIndexes[j]-adjust, 3);
+                            adjust += 2;
+                            j++;
+                        }
+                    }
+                }
+                if (equationArr.includes("+") == true) {
+                    adjust = 0;
+                    const addIndexes = getAllIndexes(equationArr, "+");
+                    const subtractIndexes = getAllIndexes(equationArr, "-");
+                    if (equationArr.includes("-") == false) {
+                        for (i=0; i<addIndexes.length; i++){ 
+                            answer = add(Number(equationArr[addIndexes[i]- adjust - 1]), Number(equationArr[addIndexes[i]-adjust + 1]));
+                            equationArr.splice(addIndexes[i] - adjust - 1, 0, answer);
+                            equationArr.splice(addIndexes[i] - adjust, 3);
+                            adjust += 2;
+                        }
+                    }
+                    else {
+                        i=0;
+                        j=0;
+                        while (i<addIndexes.length || j<subtractIndexes.length) {
+                            if (addIndexes[i] < subtractIndexes[j]) { // if add comes first the run add
+                                answer = add(Number(equationArr[addIndexes[i]-adjust - 1]), Number(equationArr[addIndexes[i]-adjust + 1]));
+                                equationArr.splice(addIndexes[i]-adjust-1, 0, answer);// insert answer
+                                equationArr.splice(addIndexes[i]-adjust, 3); // remove equation just performed
+                                adjust += 2;
+                                i++;
+                            }
+                            else if (addIndexes[i] > subtractIndexes[j]) {
+                                answer = subtract(Number(equationArr[subtractIndexes[j] - adjust - 1]), Number(equationArr[subtractIndexes[j] - adjust + 1]));
+                                equationArr.splice(subtractIndexes[j]-adjust -1, 0, answer);
+                                equationArr.splice(subtractIndexes[j]-adjust, 3);
+                                adjust += 2;
+                                j++;
+                            }
+                            else if (subtractIndexes[j] == undefined) {
+                                answer = add(Number(equationArr[addIndexes[i]-adjust - 1]), Number(equationArr[addIndexes[i]-adjust + 1]));
+                                equationArr.splice(addIndexes[i]-adjust-1, 0, answer);// insert answer
+                                equationArr.splice(addIndexes[i]-adjust, 3); // remove equation just performed
+                                adjust += 2;
+                                i++;
+                            }
+                            else if (addIndexes[i] == undefined) {
+                                answer = subtract(Number(equationArr[subtractIndexes[j] - adjust - 1]), Number(equationArr[subtractIndexes[j] - adjust + 1]));
+                                equationArr.splice(subtractIndexes[j]-adjust -1, 0, answer);
+                                equationArr.splice(subtractIndexes[j]-adjust, 3);
+                                adjust += 2;
+                                j++;
+                            }
+                        }
+                    }
+                }
+                if (equationArr.includes("-") == true && equationArr.includes("+") == false) {
+                    adjust = 0;
+                    const subtractIndexes = getAllIndexes(equationArr, "-");
+                    for (i=0; i<subtractIndexes; i++) {
+                        answer = subtract(Number(equationArr[subtractIndexes[i] - adjust - 1]), Number(equationArr[subtractIndexes[i] - adjust + 1]));
+                        equationArr.splice(subtractIndexes[i] - adjust - 1, 0, answer);
+                        equationArr.splice(subtractIndexes[i] - adjust, 3);
+                        adjust += 2;
+                        }
+                    }
+                if (isNaN(answer)) {
+                    answer = "Uh oh!";
+                } 
+                document.getElementById("display").textContent = answer;
+                answer = "";
+                equation = "";
+            }
+
+            const add = (function(a, b) {
+                return (a + b);
+            });
+            const subtract = (function(a, b) {
+                return (a - b);
+            });
+            const multiply = (function(a, b) {
+                return (a * b);
+            });
+            const divide = (function(a, b) {
+                return (a / b);
+            });
+        </script>
+    </body>
+</html>
